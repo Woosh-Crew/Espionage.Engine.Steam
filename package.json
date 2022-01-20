@@ -1,8 +1,8 @@
 {
-  "name": "com.wooshcrew.espionage.engine",
-  "version": "0.0.5",
-  "displayName": "Espionage.Engine",
-  "description": "A Package that allows you to create games easily, Requires Facepunch.Steamworks",
+  "name": "com.wooshcrew.espionage.engine.steam",
+  "version": "0.0.1",
+  "displayName": "Espionage.Engine.Steam",
+  "description": "A Module for Espionage.Engine that adds in the Steamworks API, Requires Facepunch.Steamworks",
   "unity": "2022.1",
   "unityRelease": "0b1",
   "dependencies": {
