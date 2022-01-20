@@ -1,0 +1,18 @@
+{
+  "name": "com.wooshcrew.espionage.engine",
+  "version": "0.0.5",
+  "displayName": "Espionage.Engine",
+  "description": "A Package that allows you to create games easily, Requires Facepunch.Steamworks",
+  "unity": "2022.1",
+  "unityRelease": "0b1",
+  "dependencies": {
+    "com.wooshcrew.espionage.engine": "https://github.com/Woosh-Crew/Espionage.Engine.git"
+  },
+  "keywords": [
+  ],
+  "author": {
+    "name": "Woosh Crew",
+    "email": "support@wooshcrew.com",
+    "url": "https://www.wooshcrew.com"
+  }
+}
