@@ -9,18 +9,24 @@ namespace Espionage.Engine.Steam
 {
 	internal static class SteamInitializer
 	{
-		[Callback( "game.ready" )]
+		[Callback( "game.ready" ), Callback( "game.not_found" )]
 		private static void Initialize()
 		{
-			if ( !Engine.Game.ClassInfo.Components.TryGet<SteamAttribute>( out var steam ) )
+			uint appId = default;
+
+			if ( Engine.Game is not null && Engine.Game.ClassInfo.Components.TryGet<SteamAttribute>( out var steam ) )
 			{
-				Debugging.Log.Warning( "No Steam component found on Game." );
-				return;
+				appId = steam.AppId;
+			}
+			else
+			{
+				Debugging.Log.Warning( "No Steam component found on Game, using Espionage's AppId" );
+				appId = 1614530;
 			}
 
 			try
 			{
-				SteamClient.Init( steam.AppId );
+				SteamClient.Init( appId );
 			}
 			catch ( Exception e )
 			{
