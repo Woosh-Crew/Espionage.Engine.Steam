@@ -12,14 +12,11 @@ namespace Espionage.Engine.Steam
 		[Callback( "steam.ready" )]
 		public static async void Grab()
 		{
-			Debugging.Log.Info( "Grabbing Workshop Items" );
-
 			// Grab Maps
 			var items = await Query.All.WhereUserSubscribed().GetPageAsync( 1 );
 
 			if ( !items.HasValue )
 			{
-				Debugging.Log.Info( "Doesn't have value" );
 				return;
 			}
 
