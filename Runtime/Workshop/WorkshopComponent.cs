@@ -9,23 +9,31 @@ namespace Espionage.Engine.Steam
 {
 	public class WorkshopComponent : Map.IComponent
 	{
-		public Item Owner { get; set; }
+		public Item Item { get; }
 
+		public WorkshopComponent( Item item )
+		{
+			Item = item;
+		}
 
 		//
 		// Map
 		//
 
-		public void OnAttached( ref Map map ) { }
+		public void OnAttached( ref Map map )
+		{
+			map.Title = Item.Title;
+			map.Description = Item.Description;
+		}
 
 		public void OnLoad()
 		{
-			SteamUGC.StartPlaytimeTracking( Owner.Id );
+			SteamUGC.StartPlaytimeTracking( Item.Id );
 		}
 
 		public void OnUnload()
 		{
-			SteamUGC.StopPlaytimeTracking( Owner.Id );
+			SteamUGC.StopPlaytimeTracking( Item.Id );
 		}
 	}
 }
