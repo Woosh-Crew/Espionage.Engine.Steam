@@ -1,9 +1,10 @@
 ﻿using System;
+using Espionage.Engine.Components;
 
 namespace Espionage.Engine.Steam
 {
 	[AttributeUsage( AttributeTargets.Class )]
-	public class SteamAttribute : Attribute, Library.IComponent
+	public class SteamAttribute : Attribute, IComponent<Library>
 	{
 		public uint AppId { get; }
 
@@ -12,6 +13,6 @@ namespace Espionage.Engine.Steam
 			AppId = appId;
 		}
 
-		public void OnAttached( ref Library library ) { }
+		public void OnAttached( Library library ) { }
 	}
 }
