@@ -25,7 +25,7 @@ namespace Espionage.Engine.Steam
 				foreach ( var path in Directory.GetFiles( item.Directory, "*.map", SearchOption.AllDirectories ) )
 				{
 					var map = new Map( path );
-					map.Components.Add( new WorkshopComponent( item ) );
+					map.Components.Add( new SteamUgcComponent( item ) );
 					Map.Database.Add( map );
 				}
 			}
