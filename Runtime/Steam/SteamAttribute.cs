@@ -4,7 +4,7 @@ using Espionage.Engine.Components;
 namespace Espionage.Engine.Steam
 {
 	[AttributeUsage( AttributeTargets.Class )]
-	public class SteamAttribute : Attribute, IComponent<Library>
+	public sealed class SteamAttribute : Attribute, IComponent<Library>
 	{
 		public uint AppId { get; }
 
