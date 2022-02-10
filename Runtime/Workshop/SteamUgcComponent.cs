@@ -1,6 +1,7 @@
 using System.Linq;
 using Espionage.Engine.Components;
 using Espionage.Engine.Resources;
+using Steamworks;
 using Steamworks.Ugc;
 
 namespace Espionage.Engine.Steam
@@ -18,6 +19,16 @@ namespace Espionage.Engine.Steam
 		{
 			map.Title = Item.Title;
 			map.Description = Item.Description;
+
+			map.OnLoad += () =>
+			{
+				SteamUGC.StartPlaytimeTracking( Item.Id );
+			};
+
+			map.OnUnload += () =>
+			{
+				SteamUGC.StopPlaytimeTracking( Item.Id );
+			};
 		}
 	}
 }

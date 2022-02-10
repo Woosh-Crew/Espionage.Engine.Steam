@@ -34,6 +34,7 @@ namespace Espionage.Engine.Steam
 
 		public void OnShutdown()
 		{
+			SteamUGC.StopPlaytimeTrackingForAllItems();
 			SteamClient.Shutdown();
 		}
 
