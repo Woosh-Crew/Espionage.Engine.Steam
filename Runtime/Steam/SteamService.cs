@@ -24,6 +24,7 @@ namespace Espionage.Engine.Steam
 			catch ( Exception e )
 			{
 				Debugging.Log.Exception( e );
+				Callback.Run( "steam.failed" );
 			}
 
 			if ( SteamClient.IsValid )
