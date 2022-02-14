@@ -39,6 +39,11 @@ namespace Espionage.Engine.Steam
 			SteamClient.Shutdown();
 		}
 
+		public void Dispose()
+		{
+			OnShutdown();
+		}
+
 		public void OnUpdate()
 		{
 			// We would run callbacks
