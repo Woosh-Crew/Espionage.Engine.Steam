@@ -7,9 +7,10 @@ using Steamworks.Ugc;
 
 namespace Espionage.Engine.Steam
 {
+	[Library]
 	internal static class WorkshopGrabber
 	{
-		[Callback( "steam.ready" )]
+		[Function, Callback( "steam.ready" )]
 		public static async void Grab()
 		{
 			// Grab Maps
