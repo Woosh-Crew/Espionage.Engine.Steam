@@ -7,8 +7,7 @@ using UnityEngine.UIElements;
 
 namespace Espionage.Engine.Steam.Editor
 {
-	[Title( "Workshop Browser" ), Group( "Steam" ), Help( "Browse the Workshop" ) ]
-	[Icon( EditorIcons.Dashboard ), HelpURL( "https://github.com/Woosh-Crew/Espionage.Engine.Steam" )]
+	[Title( "Workshop Browser" ), Group( "Steam" ), Help( "Browse the Workshop" ), Icon( EditorIcons.Dashboard )]
 	public class WorkshopBrowser : EditorTool
 	{
 		//
@@ -28,7 +27,7 @@ namespace Espionage.Engine.Steam.Editor
 		{
 			var root = new VisualElement();
 
-			root.Add( new HeaderBar( "Workshop", ClassInfo.Help, null,"Bottom" ) );
+			root.Add( new HeaderBar( "Workshop", ClassInfo.Help, null, "Bottom" ) );
 
 			return root;
 		}
@@ -38,7 +37,7 @@ namespace Espionage.Engine.Steam.Editor
 			var root = new VisualElement();
 
 			var scrollView = new ScrollView();
-			root.Add(scrollView);
+			root.Add( scrollView );
 
 			return root;
 		}
