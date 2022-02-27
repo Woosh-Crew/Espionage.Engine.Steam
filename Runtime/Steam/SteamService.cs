@@ -4,16 +4,9 @@ using Steamworks;
 
 namespace Espionage.Engine.Steam
 {
-	internal class SteamService : IService
+	internal class SteamService : Service
 	{
-		public Library ClassInfo { get; }
-
-		public SteamService()
-		{
-			ClassInfo = Library.Database[GetType()];
-		}
-
-		public void OnReady()
+		public override void OnReady()
 		{
 			var appId = Engine.Game is not null && Engine.Game.ClassInfo.Components.TryGet<SteamAttribute>( out var steam ) ? steam.AppId : 1614530;
 
@@ -33,18 +26,14 @@ namespace Espionage.Engine.Steam
 			}
 		}
 
-		public void OnShutdown()
+		public override void OnShutdown()
 		{
 			SteamUGC.StopPlaytimeTrackingForAllItems();
 			SteamClient.Shutdown();
 		}
 
-		public void Dispose()
-		{
-			OnShutdown();
-		}
 
-		public void OnUpdate()
+		public override void OnUpdate()
 		{
 			// We would run callbacks
 			// But Facepunch.Steamworks
