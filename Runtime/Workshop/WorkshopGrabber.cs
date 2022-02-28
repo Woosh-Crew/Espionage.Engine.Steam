@@ -7,7 +7,7 @@ using Steamworks.Ugc;
 
 namespace Espionage.Engine.Steam
 {
-	[Library]
+	[Library, Group( "Steam" )]
 	internal static class WorkshopGrabber
 	{
 		[Function, Callback( "steam.ready" )]
