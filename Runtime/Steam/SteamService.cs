@@ -4,6 +4,7 @@ using Steamworks;
 
 namespace Espionage.Engine.Steam
 {
+	[Order( 10 )]
 	internal class SteamService : Service
 	{
 		public override void OnReady()
