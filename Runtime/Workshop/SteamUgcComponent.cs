@@ -20,12 +20,12 @@ namespace Espionage.Engine.Steam
 			map.Title = Item.Title;
 			map.Description = Item.Description;
 
-			map.OnLoad += () =>
+			map.Loaded += () =>
 			{
 				SteamUGC.StartPlaytimeTracking( Item.Id );
 			};
 
-			map.OnUnload += () =>
+			map.Unloaded += () =>
 			{
 				SteamUGC.StopPlaytimeTracking( Item.Id );
 			};
