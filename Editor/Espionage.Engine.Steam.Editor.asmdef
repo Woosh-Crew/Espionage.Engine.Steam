@@ -2,9 +2,9 @@
     "name": "Espionage.Engine.Steam.Editor",
     "rootNamespace": "Espionage.Engine.Steam.Editor",
     "references": [
-        "GUID:dc59b5d4bc9b8d24282ed5f3af938565",
+        "GUID:e8e5ad8e3f4f62e4988340e3ccd898b5",
         "GUID:b479bc809753b2141a4f58843671b904",
-        "GUID:e8e5ad8e3f4f62e4988340e3ccd898b5"
+        "GUID:dc59b5d4bc9b8d24282ed5f3af938565"
     ],
     "includePlatforms": [
         "Editor"
