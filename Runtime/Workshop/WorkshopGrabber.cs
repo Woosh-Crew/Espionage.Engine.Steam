@@ -11,6 +11,6 @@ namespace Espionage.Engine.Steam
 	internal static class WorkshopGrabber
 	{
 		[Function, Callback( "steam.ready" )]
-		public static async void Grab() { }
+		public static void Grab() { }
 	}
 }
