@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace Espionage.Engine.Steam.Editor
 {
-	[Title( "Workshop Browser" ), Group( "Steam" ), Help( "Browse the Workshop" ), Icon( EditorIcons.Dashboard )]
+	[Title( "Workshop Browser" ), Group( "Steam" ), Help( "Browse the Workshop" )]
 	public class WorkshopBrowser : EditorTool
 	{
 		//
