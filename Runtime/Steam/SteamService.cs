@@ -23,6 +23,9 @@ namespace Espionage.Engine.Steam
 
 			if ( SteamClient.IsValid )
 			{
+				// Add the Steam Install to Files
+				Files.Paths.Add( "steam", SteamApps.AppInstallDir() );
+
 				Callback.Run( "steam.ready" );
 			}
 		}
