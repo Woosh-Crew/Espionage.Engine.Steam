@@ -17,14 +17,17 @@ namespace Espionage.Engine.Steam
 			}
 			catch ( Exception e )
 			{
-				Debugging.Log.Exception( e );
+				Dev.Log.Exception( e );
 				Callback.Run( "steam.failed" );
 			}
 
 			if ( SteamClient.IsValid )
 			{
 				// Add the Steam Install to Files
-				Files.Pathing.Add( "steam", SteamApps.AppInstallDir() );
+				if ( !Files.Pathing.Contains( "steam" ) )
+				{
+					Files.Pathing.Add( "steam", SteamApps.AppInstallDir() );
+				}
 
 				Callback.Run( "steam.ready" );
 			}
