@@ -22,43 +22,46 @@ namespace Espionage.Engine.Steam
 				Callback.Run( "steam.failed" );
 			}
 
-			if ( SteamClient.IsValid )
+			// Don't do anything if init failed
+			if ( !SteamClient.IsValid )
 			{
-				// Add the Steam Install to Files
-				if ( !Files.Pathing.Contains( "steam" ) )
+				return;
+			}
+
+			// Add the Steam Install to Files
+			if ( !Files.Pathing.Contains( "steam" ) )
+			{
+				Files.Pathing.Add( "steam", SteamApps.AppInstallDir() );
+			}
+
+			// Init Logging Callbacks
+			Dispatch.OnDebugCallback = ( type, str, server ) =>
+			{
+				if ( str == $"[{(int)type} not in sdk]" || type is CallbackType.PersonaStateChange or CallbackType.SteamAPICallCompleted )
 				{
-					Files.Pathing.Add( "steam", SteamApps.AppInstallDir() );
+					return;
 				}
 
-				// Init Logging Callbacks
-				Dispatch.OnDebugCallback = ( type, str, server ) =>
+				Dev.Log.Add( new()
 				{
-					if ( str == $"[{(int)type} not in sdk]" || type == CallbackType.PersonaStateChange )
-					{
-						return;
-					}
+					Message = $"[Steam Callback] {type}",
+					Type = Entry.Level.Info,
+					StackTrace = str
+				} );
+			};
 
-					Dev.Log.Add( new()
-					{
-						Message = $"[Steam Callback] {type}",
-						Type = Entry.Level.Info,
-						StackTrace = str
-					} );
-				};
-
-				// Init Logging Callbacks
-				Dispatch.OnException = ( e ) =>
+			// Init API Call Exception Callbacks
+			Dispatch.OnException = ( e ) =>
+			{
+				Dev.Log.Add( new()
 				{
-					Dev.Log.Add( new()
-					{
-						Message = e.Message,
-						Type = Entry.Level.Exception,
-						StackTrace = e.StackTrace
-					} );
-				};
+					Message = e.Message,
+					Type = Entry.Level.Exception,
+					StackTrace = e.StackTrace
+				} );
+			};
 
-				Callback.Run( "steam.ready" );
-			}
+			Callback.Run( "steam.ready" );
 		}
 
 		public override void OnShutdown()
