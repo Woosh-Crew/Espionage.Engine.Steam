@@ -8,19 +8,19 @@ namespace Espionage.Engine.Steam
 	[Order( 10 )]
 	internal class SteamService : Service
 	{
+		#if UNITY_EDITOR
+
+		[Function, Callback( "editor.game_constructed" )]
+		private static void Init()
+		{
+			Connect();
+		}
+
+		#endif
+
 		public override void OnReady()
 		{
-			var appId = Engine.Game is not null && Engine.Game.ClassInfo.Components.TryGet<SteamAttribute>( out var steam ) ? steam.AppId : 1614530;
-
-			try
-			{
-				SteamClient.Init( appId );
-			}
-			catch ( Exception e )
-			{
-				Dev.Log.Exception( e );
-				Callback.Run( "steam.failed" );
-			}
+			Connect();
 
 			// Don't do anything if init failed
 			if ( !SteamClient.IsValid )
@@ -64,12 +64,43 @@ namespace Espionage.Engine.Steam
 			Callback.Run( "steam.ready" );
 		}
 
-		public override void OnShutdown()
+		public static void Connect()
+		{
+			if ( SteamClient.IsValid )
+			{
+				Dev.Log.Info( "Steam already connected" );
+				return;
+			}
+
+			var appId = Engine.Game is not null && Engine.Game.ClassInfo.Components.TryGet<SteamAttribute>( out var steam ) ? steam.AppId : 1614530;
+
+			try
+			{
+				SteamClient.Init( appId );
+			}
+			catch ( Exception e )
+			{
+				Dev.Log.Exception( e );
+				Callback.Run( "steam.failed" );
+			}
+
+			if ( SteamClient.IsValid )
+			{
+				Dev.Log.Info( $"Steam Connected [Player : {SteamClient.Name}]" );
+			}
+		}
+
+		public static void Disconnect()
 		{
 			SteamUGC.StopPlaytimeTrackingForAllItems();
 			SteamClient.Shutdown();
 		}
 
+
+		public override void OnShutdown()
+		{
+			Disconnect();
+		}
 
 		public override void OnUpdate()
 		{
