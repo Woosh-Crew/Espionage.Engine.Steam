@@ -1,4 +1,5 @@
 using System;
+using Espionage.Engine.Logging;
 using Espionage.Engine.Services;
 using Steamworks;
 
@@ -28,6 +29,33 @@ namespace Espionage.Engine.Steam
 				{
 					Files.Pathing.Add( "steam", SteamApps.AppInstallDir() );
 				}
+
+				// Init Logging Callbacks
+				Dispatch.OnDebugCallback = ( type, str, server ) =>
+				{
+					if ( str == $"[{(int)type} not in sdk]" || type == CallbackType.PersonaStateChange )
+					{
+						return;
+					}
+
+					Dev.Log.Add( new()
+					{
+						Message = $"[Steam Callback] {type}",
+						Type = Entry.Level.Info,
+						StackTrace = str
+					} );
+				};
+
+				// Init Logging Callbacks
+				Dispatch.OnException = ( e ) =>
+				{
+					Dev.Log.Add( new()
+					{
+						Message = e.Message,
+						Type = Entry.Level.Exception,
+						StackTrace = e.StackTrace
+					} );
+				};
 
 				Callback.Run( "steam.ready" );
 			}
