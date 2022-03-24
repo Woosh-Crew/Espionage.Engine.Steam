@@ -29,16 +29,5 @@ namespace Espionage.Engine.Steam.Resources
 		{
 			SteamUGC.StopPlaytimeTracking( Item.Id );
 		}
-
-		public ILoadable Inject()
-		{
-			if ( Item.IsInstalled )
-			{
-				return null;
-			}
-
-			// Download the item if its not installed
-			return Operation.Create( Item.DownloadAsync(), $"Downloading {Item.Title} by {Item.Owner.Name}" );
-		}
 	}
 }

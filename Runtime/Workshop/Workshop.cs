@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Espionage.Engine.Resources;
-using Espionage.Engine.Steam.Request;
 using Espionage.Engine.Steam.Resources;
+using Steamworks;
 using Steamworks.Ugc;
 
 namespace Espionage.Engine.Steam
@@ -19,7 +20,16 @@ namespace Espionage.Engine.Steam
 
 		public static ILoadable Download( Item item )
 		{
-			return new DownloadRequest();
+			if ( item.IsInstalled )
+			{
+				Dev.Log.Warning( $"Item [{item.Title}] was already installed." );
+				return null;
+			}
+
+			var download = item.DownloadAsync();
+			item.Subscribe();
+
+			return Operation.Create( download, $"Downloading Workshop Item {item.Title}" );
 		}
 
 		[Function, Callback( "steam.ready" )]
@@ -51,7 +61,6 @@ namespace Espionage.Engine.Steam
 					}
 
 					var path = Files.Pathing.All( item.Directory, extensions ).FirstOrDefault();
-
 					if ( !string.IsNullOrEmpty( path ) )
 					{
 						Map.Setup( path )
