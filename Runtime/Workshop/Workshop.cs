@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using Espionage.Engine.Resources;
-using Espionage.Engine.Steam.Resources;
-using Steamworks;
+﻿using Espionage.Engine.Resources;
 using Steamworks.Ugc;
 
 namespace Espionage.Engine.Steam
@@ -35,9 +31,7 @@ namespace Espionage.Engine.Steam
 		[Function, Callback( "steam.ready" )]
 		private static async void Grab()
 		{
-			var extensions = Library.Database.GetAll<Map.File>().Select( e => e.Components.Get<FileAttribute>()?.Extension ).ToArray();
 			var query = Query.ItemsReadyToUse.WhereUserSubscribed();
-
 			var page = 1;
 
 			// Get all pages
@@ -55,20 +49,7 @@ namespace Espionage.Engine.Steam
 
 				foreach ( var item in items.Value.Entries )
 				{
-					if ( !item.IsInstalled || string.IsNullOrEmpty( item.Directory ) )
-					{
-						continue;
-					}
-
-					var path = Files.Pathing.All( item.Directory, extensions ).FirstOrDefault();
-					if ( !string.IsNullOrEmpty( path ) )
-					{
-						Map.Setup( path )
-							.Meta( item.Title, item.Description, item.Owner.Name )
-							.Origin( "Steam Workshop" )
-							.With<UGC>( new( item ) )
-							.Build();
-					}
+					Map.Setup.Workshop( item ).Build();
 				}
 			}
 		}
