@@ -152,7 +152,7 @@ namespace Espionage.Engine.Steam
 
 			foreach ( var item in page.Value.Entries )
 			{
-				Dev.Log.Add( new() { Message = $"{item.Title} [{item.Owner.Name}]", StackTrace = item.Description } );
+				Dev.Log.Add( new() { Message = $"{item.Title} [{item.Owner.Name}]", Trace = item.Description } );
 			}
 		}
 	}

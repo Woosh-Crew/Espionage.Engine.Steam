@@ -44,9 +44,9 @@ namespace Espionage.Engine.Steam
 
 				Dev.Log.Add( new()
 				{
-					Message = $"[Steam Callback] {type}",
-					Type = Entry.Level.Info,
-					StackTrace = str
+					Message = $"{type}",
+					Level = "Steam Info",
+					Trace = str
 				} );
 			};
 
@@ -56,8 +56,8 @@ namespace Espionage.Engine.Steam
 				Dev.Log.Add( new()
 				{
 					Message = e.Message,
-					Type = Entry.Level.Exception,
-					StackTrace = e.StackTrace
+					Level = "Steam Exception",
+					Trace = e.StackTrace
 				} );
 			};
 
