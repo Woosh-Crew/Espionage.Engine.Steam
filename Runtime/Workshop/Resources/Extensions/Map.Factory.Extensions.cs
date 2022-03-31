@@ -19,8 +19,6 @@ namespace Espionage.Engine.Steam
 			}
 
 			return Map.Setup.Path( path )?
-				.Meta( item.Title, item.Description, item.Owner.Name )
-				.Origin( "Steam Workshop" )
 				.With<UGC>( new( item ) );
 		}
 	}
