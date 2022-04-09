@@ -42,7 +42,7 @@ namespace Espionage.Engine.Steam
 					return;
 				}
 
-				Dev.Log.Add( new()
+				Debugging.Log.Add( new()
 				{
 					Message = $"{type}",
 					Level = "Steam Info",
@@ -53,7 +53,7 @@ namespace Espionage.Engine.Steam
 			// Init API Call Exception Callbacks
 			Dispatch.OnException = ( e ) =>
 			{
-				Dev.Log.Add( new()
+				Debugging.Log.Add( new()
 				{
 					Message = e.Message,
 					Level = "Steam Exception",
@@ -68,7 +68,7 @@ namespace Espionage.Engine.Steam
 		{
 			if ( SteamClient.IsValid )
 			{
-				Dev.Log.Info( "Steam already connected" );
+				Debugging.Log.Info( "Steam already connected" );
 				return;
 			}
 
@@ -80,13 +80,13 @@ namespace Espionage.Engine.Steam
 			}
 			catch ( Exception e )
 			{
-				Dev.Log.Exception( e );
+				Debugging.Log.Exception( e );
 				Callback.Run( "steam.failed" );
 			}
 
 			if ( SteamClient.IsValid )
 			{
-				Dev.Log.Info( $"Steam Connected [Player : {SteamClient.Name}]" );
+				Debugging.Log.Info( $"Steam Connected [Player : {SteamClient.Name}]" );
 			}
 		}
 

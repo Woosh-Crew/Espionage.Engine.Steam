@@ -24,7 +24,7 @@ namespace Espionage.Engine.Steam
 
 			if ( item.IsInstalled )
 			{
-				Dev.Log.Warning( $"Item [{item.Title}] was already installed." );
+				Debugging.Log.Warning( $"Item [{item.Title}] was already installed." );
 				return null;
 			}
 
@@ -48,7 +48,7 @@ namespace Espionage.Engine.Steam
 
 				if ( !items.HasValue || items.Value.ResultCount == 0 )
 				{
-					Dev.Log.Info( $"Couldn't find anymore workshop pages where user subscribed. Page Count: [{page - 1}]" );
+					Debugging.Log.Info( $"Couldn't find anymore workshop pages where user subscribed. Page Count: [{page - 1}]" );
 					break;
 				}
 
@@ -94,7 +94,7 @@ namespace Espionage.Engine.Steam
 				}
 				catch ( Exception e )
 				{
-					Dev.Log.Exception( e );
+					Debugging.Log.Exception( e );
 				}
 
 				loaded.Invoke();
@@ -120,7 +120,7 @@ namespace Espionage.Engine.Steam
 
 				if ( !page.HasValue || page.Value.ResultCount == 0 )
 				{
-					Dev.Log.Warning( "No Item's could be found." );
+					Debugging.Log.Warning( "No Item's could be found." );
 					return;
 				}
 
@@ -129,7 +129,7 @@ namespace Espionage.Engine.Steam
 
 			if ( item == null )
 			{
-				Dev.Log.Warning( "Couldn't find workshop item" );
+				Debugging.Log.Warning( "Couldn't find workshop item" );
 				return;
 			}
 
@@ -146,13 +146,13 @@ namespace Espionage.Engine.Steam
 
 			if ( !page.HasValue || page.Value.ResultCount == 0 )
 			{
-				Dev.Log.Warning( "No Item's could be found." );
+				Debugging.Log.Warning( "No Item's could be found." );
 				return;
 			}
 
 			foreach ( var item in page.Value.Entries )
 			{
-				Dev.Log.Add( new() { Message = $"{item.Title} [{item.Owner.Name}]", Trace = item.Description } );
+				Debugging.Log.Add( new() { Message = $"{item.Title} [{item.Owner.Name}]", Trace = item.Description } );
 			}
 		}
 	}

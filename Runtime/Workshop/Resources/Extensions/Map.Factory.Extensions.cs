@@ -14,7 +14,7 @@ namespace Espionage.Engine.Steam
 
 			if ( path == null )
 			{
-				Dev.Log.Warning( $"{item.Title} did not contain a valid map." );
+				Debugging.Log.Warning( $"{item.Title} did not contain a valid map." );
 				return null;
 			}
 
