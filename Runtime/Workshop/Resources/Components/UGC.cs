@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Espionage.Engine.Steam.Resources
 {
-	public class UGC : IComponent<Map>, Map.ICallbacks, IComponent<IResource>
+	public class UGC : IComponent<Map>, Map.ICallbacks, IComponent<IAsset>
 	{
 		private Item Item { get; }
 
@@ -15,7 +15,7 @@ namespace Espionage.Engine.Steam.Resources
 			Item = item;
 		}
 
-		public void OnAttached( IResource item ) { }
+		public void OnAttached( IAsset item ) { }
 
 		public void OnAttached( Map map )
 		{

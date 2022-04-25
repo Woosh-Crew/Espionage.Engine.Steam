@@ -1,4 +1,5 @@
 using System;
+using Espionage.Engine.IO;
 using Espionage.Engine.Services;
 using Steamworks;
 
@@ -8,7 +9,7 @@ namespace Espionage.Engine.Steam
 	public class Steam : Service
 	{
 		// API
-		
+
 		public static void Connect()
 		{
 			if ( SteamClient.IsValid )
@@ -32,11 +33,11 @@ namespace Espionage.Engine.Steam
 			if ( SteamClient.IsValid )
 			{
 				Debugging.Log.Info( $"Steam Connected [Player : {SteamClient.Name}]" );
-				
+
 				// Add the Steam Install to Files
-				if ( !Files.Pathing.Contains( "steam" ) )
+				if ( !Pathing.Contains( "steam" ) )
 				{
-					Files.Pathing.Add( "steam", SteamApps.AppInstallDir() );
+					Pathing.Add( "steam", SteamApps.AppInstallDir() );
 				}
 			}
 		}
@@ -46,7 +47,7 @@ namespace Espionage.Engine.Steam
 			SteamUGC.StopPlaytimeTrackingForAllItems();
 			SteamClient.Shutdown();
 		}
-		
+
 		// Service
 
 		public override void OnReady()
@@ -88,7 +89,7 @@ namespace Espionage.Engine.Steam
 
 			Callback.Run( "steam.ready" );
 		}
-		
+
 		public override void OnShutdown()
 		{
 			Disconnect();
