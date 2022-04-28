@@ -1,12 +1,11 @@
 using System;
 using Espionage.Engine.IO;
-using Espionage.Engine.Services;
 using Steamworks;
 
 namespace Espionage.Engine.Steam
 {
 	[Order( 10 ), Editor]
-	public class Steam : Service
+	public class Steam : Module
 	{
 		// API
 
@@ -18,7 +17,7 @@ namespace Espionage.Engine.Steam
 				return;
 			}
 
-			var appId = Engine.Game is not null && Engine.Game.ClassInfo.Components.TryGet<SteamAttribute>( out var steam ) ? steam.AppId : 1614530;
+			var appId = Engine.Project is not null && Engine.Project.ClassInfo.Components.TryGet<SteamAttribute>( out var steam ) ? steam.AppId : 1614530;
 
 			try
 			{
@@ -50,7 +49,7 @@ namespace Espionage.Engine.Steam
 
 		// Service
 
-		public override void OnReady()
+		protected override void OnReady()
 		{
 			Connect();
 
@@ -59,22 +58,6 @@ namespace Espionage.Engine.Steam
 			{
 				return;
 			}
-
-			// Init Logging Callbacks
-			Dispatch.OnDebugCallback = ( type, str, server ) =>
-			{
-				if ( str == $"[{(int)type} not in sdk]" || type is CallbackType.PersonaStateChange or CallbackType.SteamAPICallCompleted )
-				{
-					return;
-				}
-
-				Debugging.Log.Add( new()
-				{
-					Message = $"{type}",
-					Level = "Steam Info",
-					Trace = str
-				} );
-			};
 
 			// Init API Call Exception Callbacks
 			Dispatch.OnException = ( e ) =>
@@ -90,7 +73,7 @@ namespace Espionage.Engine.Steam
 			Callback.Run( "steam.ready" );
 		}
 
-		public override void OnShutdown()
+		protected override void OnShutdown()
 		{
 			Disconnect();
 		}

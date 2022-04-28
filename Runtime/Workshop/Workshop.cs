@@ -133,7 +133,7 @@ namespace Espionage.Engine.Steam
 				return;
 			}
 
-			Engine.Game.Loader.Start(
+			Engine.Modules.Get<Loader>().Start(
 				new Loader.Request( Download( item.Value ) ),
 				new Loader.Request( () => Map.Setup.Workshop( item.Value )?.Build() )
 			);
