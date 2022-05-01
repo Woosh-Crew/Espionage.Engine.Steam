@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Espionage.Engine.Logging;
 using Espionage.Engine.Resources;
 using Steamworks;
 using Steamworks.Ugc;

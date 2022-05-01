@@ -2,7 +2,6 @@
 using Espionage.Engine.Resources;
 using Steamworks;
 using Steamworks.Ugc;
-using UnityEngine.SceneManagement;
 
 namespace Espionage.Engine.Steam.Resources
 {
@@ -45,7 +44,7 @@ namespace Espionage.Engine.Steam.Resources
 
 		// Map
 
-		public void OnLoad( Scene scene )
+		public void OnLoad()
 		{
 			SteamUGC.StartPlaytimeTracking( Item.Id );
 		}

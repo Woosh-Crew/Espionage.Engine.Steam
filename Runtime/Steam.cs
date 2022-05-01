@@ -1,13 +1,17 @@
 using System;
+using Espionage.Engine;
 using Espionage.Engine.IO;
 using Steamworks;
+
+[assembly : Library]
 
 namespace Espionage.Engine.Steam
 {
 	[Order( 10 ), Editor]
 	public class Steam : Module
 	{
-		// API
+		// Public API
+		// --------------------------------------------------------------------------------------- //
 
 		public static void Connect()
 		{
@@ -29,25 +33,30 @@ namespace Espionage.Engine.Steam
 				Callback.Run( "steam.failed" );
 			}
 
-			if ( SteamClient.IsValid )
+			if ( !SteamClient.IsValid )
 			{
-				Debugging.Log.Info( $"Steam Connected [Player : {SteamClient.Name}]" );
-
-				// Add the Steam Install to Files
-				if ( !Pathing.Contains( "steam" ) )
-				{
-					Pathing.Add( "steam", SteamApps.AppInstallDir() );
-				}
+				return;
 			}
+
+			Debugging.Log.Info( $"Steam Connected [Player : {SteamClient.Name}]" );
+
+			// Add the Steam Install to Files
+			Pathing.Add( "steam", SteamApps.AppInstallDir() );
 		}
 
 		public static void Disconnect()
 		{
+			if ( !SteamClient.IsValid )
+			{
+				return;
+			}
+
 			SteamUGC.StopPlaytimeTrackingForAllItems();
 			SteamClient.Shutdown();
 		}
 
-		// Service
+		// Module Specific Logic
+		// --------------------------------------------------------------------------------------- //
 
 		protected override void OnReady()
 		{
